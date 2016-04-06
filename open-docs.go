@@ -43,17 +43,7 @@ func (OpenDocsPlugin) GetMetadata() plugin.PluginMetadata {
 	return plugin.PluginMetadata{
 		Name:    "open-docs",
 		Version: plugin.VersionType{Major: 1, Minor: 1, Build: 0},
-		Commands: []plugin.Command{
-			{
-				Name:     "open-docs",
-				HelpText: "open app swagger url in browser",
-				UsageDetails: plugin.Usage{
-					Usage: "docs <appname>",
-				},
-			},
-		},
-	},
-}
+		Commands: []plugin.Command{ { Name: "open-docs", HelpText: "open app swagger url in browser", UsageDetails: plugin.Usage{ Usage: "docs <appname>" }}}}}
 
 func (plugin OpenDocsPlugin) runAppOpen(cliConnection plugin.CliConnection, args []string) {
 	output, err := cliConnection.CliCommandWithoutTerminalOutput("app", args[1])
