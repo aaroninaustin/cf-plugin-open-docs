@@ -33,21 +33,21 @@ func (plugin OpenDocsPlugin) Run(cliConnection plugin.CliConnection, args []stri
 	if err != nil {
 		os.Exit(1)
 	}
-	if args[0] == "open-docs" {
+	if args[0] == "docs" {
 		plugin.runAppOpen(cliConnection, args)
 	}
 }
 
 func (OpenDocsPlugin) GetMetadata() plugin.PluginMetadata {
     return plugin.PluginMetadata{
-        Name:    "open-docs",
+        Name:    "docs",
         Version: plugin.VersionType{Major: 1, Minor: 1, Build: 0},
         Commands: []plugin.Command{
             {
-                Name:     "open-docs",
+                Name:     "docs",
                 HelpText: "open app swagger url in browser",
                 UsageDetails: plugin.Usage{
-                    Usage: "open-docs <appname>",
+                    Usage: "docs <appname>",
                 },
             },
         },
@@ -140,10 +140,10 @@ func (plugin OpenDocsPlugin) runServiceOpen(cliConnection plugin.CliConnection, 
 
 func checkArgs(cliConnection plugin.CliConnection, args []string) error {
 	if len(args) < 2 {
-		if args[0] == "open-docs" {
+		if args[0] == "docs" {
 			cliConnection.CliCommand(args[0], "-h")
 			return errors.New("Appname is needed")
-		} else if args[0] == "service-open" {
+		} else if args[0] == "service-open-docs" {
 			cliConnection.CliCommand(args[0], "-h")
 			return errors.New("Appname is needed")
 		}
