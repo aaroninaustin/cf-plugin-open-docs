@@ -48,11 +48,11 @@ func (OpenDocsPlugin) GetMetadata() plugin.PluginMetadata {
 				Name:     "open-docs",
 				HelpText: "open app swagger url in browser",
 				UsageDetails: plugin.Usage{
-					Usage: "docs <appname>"
+					Usage: "docs <appname>",
 				},
 			},
 		},
-	}
+	},
 }
 
 func (plugin OpenDocsPlugin) runAppOpen(cliConnection plugin.CliConnection, args []string) {
