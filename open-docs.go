@@ -49,9 +49,9 @@ func (OpenDocsPlugin) GetMetadata() plugin.PluginMetadata {
 				HelpText: "open app swagger url in browser",
 				UsageDetails: plugin.Usage{
 					Usage: "docs <appname>"
-				}
+				},
 			},
-		}
+		},
 	}
 }
 
