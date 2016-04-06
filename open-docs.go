@@ -50,7 +50,7 @@ func (OpenDocsPlugin) GetMetadata() plugin.PluginMetadata {
 				UsageDetails: plugin.Usage{
 					Usage: "docs <appname>"
 				}
-			}
+			},
 		}
 	}
 }
