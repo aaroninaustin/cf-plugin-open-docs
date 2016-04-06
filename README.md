@@ -7,20 +7,20 @@ Installation
 ------------
 
 ```
-$ go get github.com/cloudfoundry-community/cf-plugin-open
-$ cf install-plugin $GOPATH/bin/cf-plugin-open
+$ go get github.com/cloudfoundry-community/cf-plugin-open-docs
+$ cf install-plugin $GOPATH/bin/cf-plugin-open-docs
 ```
 
 Usage
 -----
 
 ```
-$ cf open <appname>
+$ cf open-docs <appname>
 ```
 
 Development
 -----------
 
 ```
-cf uninstall-plugin open; go get ./...; cf install-plugin $GOPATH/bin/cf-plugin-open
+cf uninstall-plugin open-docs; go get ./...; cf install-plugin $GOPATH/bin/cf-plugin-open
 ```

@@ -1,9 +1,9 @@
 #!/bin/bash
 
 export GH_ORG=${GH_ORG:-cloudfoundry-community}
-export GH_REPO=${GH_REPO:-cf-plugin-open}
-export NAME=${NAME:-"cf cli plugin for open"}
-export DESCRIPTION=${DESCRIPTION:-"Open app url in browser "}
+export GH_REPO=${GH_REPO:-cf-plugin-open-docs}
+export NAME=${NAME:-"cf cli plugin for open-docs"}
+export DESCRIPTION=${DESCRIPTION:-"Open app swagger url in browser "}
 export PKG_DIR=${PKG_DIR:=out}
 
 VERSION=$(<VERSION)

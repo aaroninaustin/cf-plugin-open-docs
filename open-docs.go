@@ -21,50 +21,41 @@ type serviceInstance struct {
 }
 
 func main() {
-	plugin.Start(&OpenPlugin{})
+	plugin.Start(&OpenDocsPlugin{})
 }
 
 // OpenPlugin empty struct for plugin
-type OpenPlugin struct{}
+type OpenDocsPlugin struct{}
 
 // Run of seeder plugin
-func (plugin OpenPlugin) Run(cliConnection plugin.CliConnection, args []string) {
+func (plugin OpenDocsPlugin) Run(cliConnection plugin.CliConnection, args []string) {
 	err := checkArgs(cliConnection, args)
 	if err != nil {
 		os.Exit(1)
 	}
-	if args[0] == "open" {
+	if args[0] == "open-docs" {
 		plugin.runAppOpen(cliConnection, args)
-	} else if args[0] == "service-open" {
-		plugin.runServiceOpen(cliConnection, args)
 	}
 }
 
 // GetMetadata of plugin
-func (OpenPlugin) GetMetadata() plugin.PluginMetadata {
+func (OpenDocsPlugin) GetMetadata() plugin.PluginMetadata {
 	return plugin.PluginMetadata{
-		Name:    "open",
+		Name:    "open-docs",
 		Version: plugin.VersionType{Major: 1, Minor: 1, Build: 0},
 		Commands: []plugin.Command{
 			{
-				Name:     "open",
-				HelpText: "open app url in browser",
+				Name:     "open-docs",
+				HelpText: "open app swagger url in browser",
 				UsageDetails: plugin.Usage{
-					Usage: "open <appname>",
+					Usage: "docs <appname>",
 				},
-			},
-			{
-				Name:     "service-open",
-				HelpText: "open service instance dashboard in browser",
-				UsageDetails: plugin.Usage{
-					Usage: "service-open <servicename>",
-				},
-			},
+			}
 		},
 	}
 }
 
-func (plugin OpenPlugin) runAppOpen(cliConnection plugin.CliConnection, args []string) {
+func (plugin OpenDocsPlugin) runAppOpen(cliConnection plugin.CliConnection, args []string) {
 	output, err := cliConnection.CliCommandWithoutTerminalOutput("app", args[1])
 	if err != nil {
 		fmt.Fprintln(os.Stdout, "error: app does not exist")
@@ -87,7 +78,7 @@ func getUrlFromOutput(output []string) ([]string, error) {
 		if splitLine[0] == "urls:" {
 			if len(splitLine) > 1 {
 				for p := 1; p < len(splitLine); p++ {
-					url := "http://" + strings.Trim(splitLine[p], ",")
+					url := "https://" + strings.Trim(splitLine[p] + "/v1/docs/", ",")
 					url = strings.TrimSpace(url)
 					urls = append(urls, url)
 				}
@@ -119,7 +110,7 @@ func multiRoutesMenu(input io.Reader, urls []string) string {
 	}
 }
 
-func (plugin OpenPlugin) runServiceOpen(cliConnection plugin.CliConnection, args []string) {
+func (plugin OpenDocsPlugin) runServiceOpen(cliConnection plugin.CliConnection, args []string) {
 	output, err := cliConnection.CliCommandWithoutTerminalOutput("service", args[1], "--guid")
 	if err != nil {
 		fmt.Fprintln(os.Stdout, "error: service does not exist")
@@ -150,7 +141,7 @@ func (plugin OpenPlugin) runServiceOpen(cliConnection plugin.CliConnection, args
 
 func checkArgs(cliConnection plugin.CliConnection, args []string) error {
 	if len(args) < 2 {
-		if args[0] == "open" {
+		if args[0] == "open-docs" {
 			cliConnection.CliCommand(args[0], "-h")
 			return errors.New("Appname is needed")
 		} else if args[0] == "service-open" {

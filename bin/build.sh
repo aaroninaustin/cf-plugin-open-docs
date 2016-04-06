@@ -6,11 +6,11 @@ if [[ "$(which gox)X" == "X" ]]; then
 fi
 
 
-rm -f cf-plugin-open*
+rm -f cf-plugin-open-docs*
 
 gox -os linux -os windows -arch 386
 gox -os darwin -os linux -os windows -arch amd64
 
 rm -rf out
 mkdir -p out
-mv cf-plugin-open* out/
+mv cf-plugin-open-docs* out/
